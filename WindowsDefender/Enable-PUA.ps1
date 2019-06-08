@@ -6,7 +6,7 @@
 
 $registryPath = "HKLM:\Software\Policies\Microsoft\Windows Defender\MpEngine"
 
-$Name = "MpEnablePusX"
+$Name = "MpEnablePus"
 
 # values to use
 # to disable: 0
