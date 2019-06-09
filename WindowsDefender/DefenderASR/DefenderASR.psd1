@@ -95,7 +95,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = @("Microsoft Defender", "Defender", "DefenderAST")
+        Tags = @("MicrosoftDefender", "Defender", "DefenderAST", "WindowsDefender")
 
         # A URL to the license for this module.
         LicenseUri = 'https://github.com/sassdawe/HardenWindows/blob/master/LICENSE'
@@ -110,7 +110,7 @@ PrivateData = @{
         ReleaseNotes = 'Stay Secure!'
 
         # External Module Dependencies which are not available using the Gallery
-        ExternalModuleDependencies = 'Defender'
+        ExternalModuleDependencies = @('Defender')
 
     } # End of PSData hashtable
 
