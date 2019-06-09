@@ -2,7 +2,7 @@
     PowerShell Unit Test file
     You'll need a test framework like Pester to execute the tests
 
-    Tests for *function-Get-DefenderAsrRules.ps1*
+    Tests for *function-Get-DefenderAsrRule.ps1*
 #>
 
 $ModuleName = "DefenderASR"
@@ -39,9 +39,25 @@ InModuleScope -ModuleName $ModuleName -ScriptBlock {
     Describe -Name "Functional tests of $function" -Fixture {
         Context -Name "General tests" -Fixture {
             It -Name "$function returns something" {
-                Get-DefenderAsrRules | Should -Not -BeNullOrEmpty
-                Get-DefenderAsrRules | Should -HaveCount 5
-                Get-DefenderAsrRules | Should -BeOfType [PSCustomObject]
+                Get-DefenderAsrRule | Should -Not -BeNullOrEmpty
+                Get-DefenderAsrRule | Should -HaveCount 5
+                Get-DefenderAsrRule | Should -BeOfType [PSCustomObject]
+            }
+        }
+    }
+
+    Describe -Name "Functional tests of $function with a MOCK" -Fixture {
+        Mock -CommandName "Get-MpPreference" -MockWith {
+            return [PSCustomObject]@{
+                AttackSurfaceReductionRules_Ids = $null
+            }
+        } -ModuleName DefenderASR
+
+        Context -Name "General tests with a MOCK" -Fixture {
+            It -Name "$function returns nothing" {
+                Get-DefenderAsrRule | Should -BeNullOrEmpty
+                #Get-DefenderAsrRule | Should -HaveCount 0
+                #Get-DefenderAsrRule | Should -BeOfType [PSCustomObject]
             }
         }
     }

@@ -25,18 +25,23 @@ function Get-DefenderAsrRule {
     process {
         $i = 0
         Write-Verbose "We've $($pref.AttackSurfaceReductionRules_Ids.Count) configured"
-        $pref.AttackSurfaceReductionRules_Ids | ForEach-Object {
-            Write-Verbose "ASRGuid: $_"
-            $g = $_
-            $rules[$($g.ToLower())] | ForEach-Object {
-                Write-Verbose "ASRName: $($_)"
-                $o = $_.PSObject.Copy()
-                Write-Verbose $_.Name
-                Add-Member -InputObject $o -Name "Action" -MemberType NoteProperty -Value $($states["$($pref.AttackSurfaceReductionRules_Actions[$i])"].Name)
-                $o
-            }
-            $i++
-        } | Sort-Object $Id | Select-Object Name, Action, Guid
+        if ($pref.AttackSurfaceReductionRules_Ids.Count -gt 0) {
+            $pref.AttackSurfaceReductionRules_Ids | ForEach-Object {
+                Write-Verbose "ASRGuid: $_"
+                $g = $_
+                $rules[$($g.ToLower())] | ForEach-Object {
+                    Write-Verbose "ASRName: $($_)"
+                    $o = $_.PSObject.Copy()
+                    Write-Verbose $_.Name
+                    Add-Member -InputObject $o -Name "Action" -MemberType NoteProperty -Value $($states["$($pref.AttackSurfaceReductionRules_Actions[$i])"].Name)
+                    $o
+                }
+                $i++
+            } | Sort-Object $Id | Select-Object Name, Action, Guid
+        }
+        else {
+            Write-Warning "You don't have any ASR rules defined, we recommend to configure some!"
+        }
     }
 
     end {

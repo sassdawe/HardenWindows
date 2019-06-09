@@ -2,7 +2,7 @@
     PowerShell Unit Test file
     You'll need a test framework like Pester to execute the tests
 
-    Tests for *function-Show-DefenderAsrRules.ps1*
+    Tests for *function-Show-DefenderAsrRule.ps1*
 #>
 
 $ModuleName = "DefenderASR"
@@ -39,9 +39,9 @@ InModuleScope -ModuleName $ModuleName -ScriptBlock {
     Describe -Name "Functional tests of $function" -Fixture {
         Context -Name "General tests" -Fixture {
             It -Name "$function returns something" {
-                Show-DefenderAsrRules | Should -Not -BeNullOrEmpty
-                Show-DefenderAsrRules | Should -HaveCount 15
-                Show-DefenderAsrRules | Should -BeOfType [PSCustomObject]
+                Show-DefenderAsrRule | Should -Not -BeNullOrEmpty
+                Show-DefenderAsrRule | Should -HaveCount 15
+                Show-DefenderAsrRule | Should -BeOfType [PSCustomObject]
             }
         }
     }
