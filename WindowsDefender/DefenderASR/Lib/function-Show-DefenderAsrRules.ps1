@@ -1,4 +1,4 @@
-function Show-DefenderAsrRules {
+function Show-DefenderAsrRule {
     <#
         .SYNOPSIS
             Show-DefenderAsrRules
@@ -18,16 +18,16 @@ function Show-DefenderAsrRules {
     [CmdletBinding()]
     [Alias("List-DAsrRules")]
     param (
-        
+
     )
-    
+
     begin {
     }
-    
+
     process {
         $rules.Values
     }
-    
+
     end {
     }
 }

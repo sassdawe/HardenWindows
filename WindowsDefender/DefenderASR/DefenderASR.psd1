@@ -12,7 +12,7 @@
 RootModule = 'DefenderASR.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.1'
+ModuleVersion = '0.0.2'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -69,7 +69,7 @@ RequiredModules = @("Defender")
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @("Get-DefenderAsrRules","Show-DefenderAsrRules")
+FunctionsToExport = @("Get-DefenderAsrRule","Show-DefenderAsrRule")
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 # CmdletsToExport = '*'
@@ -95,19 +95,22 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @("Microsoft Defender", "Defender", "DefenderAST")
+        Tags = @("Microsoft Defender", "Defender", "DefenderAST")
 
         # A URL to the license for this module.
-        # LicenseUri = 'https://github.com/sassdawe/HardenWindows/blob/master/LICENSE'
+        LicenseUri = 'https://github.com/sassdawe/HardenWindows/blob/master/LICENSE'
 
         # A URL to the main website for this project.
-        # ProjectUri = 'https://github.com/sassdawe/HardenWindows/tree/master/WindowsDefender/DefenderASR'
+        ProjectUri = 'https://github.com/sassdawe/HardenWindows/tree/master/WindowsDefender/DefenderASR'
 
         # A URL to an icon representing this module.
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = 'Stay Secure!'
+        ReleaseNotes = 'Stay Secure!'
+
+        # External Module Dependencies which are not available using the Gallery
+        ExternalModuleDependencies = 'Defender'
 
     } # End of PSData hashtable
 

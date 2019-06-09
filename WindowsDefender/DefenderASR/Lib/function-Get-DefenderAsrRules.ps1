@@ -1,4 +1,4 @@
-function Get-DefenderAsrRules {
+function Get-DefenderAsrRule {
     <#
         .SYNOPSIS
             Get-DefenderAsrRules
@@ -14,14 +14,14 @@ function Get-DefenderAsrRules {
     #>
     [CmdletBinding()]
     param (
-        
+
     )
-    
+
     begin {
         Write-Verbose "Get-MpPreference"
         $pref = Get-MpPreference
     }
-    
+
     process {
         $i = 0
         Write-Verbose "We've $($pref.AttackSurfaceReductionRules_Ids.Count) configured"
@@ -38,7 +38,7 @@ function Get-DefenderAsrRules {
             $i++
         } | Sort-Object $Id | Select-Object Name, Guid, Action
     }
-    
+
     end {
     }
 }
