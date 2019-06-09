@@ -36,7 +36,7 @@ function Get-DefenderAsrRule {
                 $o
             }
             $i++
-        } | Sort-Object $Id | Select-Object Name, Guid, Action
+        } | Sort-Object $Id | Select-Object Name, Action, Guid
     }
 
     end {

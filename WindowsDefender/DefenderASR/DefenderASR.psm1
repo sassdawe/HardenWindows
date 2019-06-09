@@ -102,7 +102,7 @@ $script:rules = New-Object System.Collections.Specialized.OrderedDictionary
 
 $scriptPath = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
 
-. "$scriptPath\Lib\function-Get-DefenderAsrRules.ps1"
-. "$scriptPath\Lib\function-Show-DefenderAsrRules.ps1"
+. "$scriptPath\Lib\function-Get-DefenderAsrRule.ps1"
+. "$scriptPath\Lib\function-Show-DefenderAsrRule.ps1"
 
 # Export-ModuleMember -Alias "List-DefenderAsrRules"
