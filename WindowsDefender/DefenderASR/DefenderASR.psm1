@@ -104,5 +104,6 @@ $scriptPath = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definit
 
 . "$scriptPath\Lib\function-Get-DefenderAsrRule.ps1"
 . "$scriptPath\Lib\function-Show-DefenderAsrRule.ps1"
+. "$scriptPath\Lib\function-Backup-DefenderAsrSetting.ps1"
 
 # Export-ModuleMember -Alias "List-DefenderAsrRules"
