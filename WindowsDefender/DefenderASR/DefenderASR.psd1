@@ -12,7 +12,7 @@
 RootModule = 'DefenderASR.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.3'
+ModuleVersion = '0.0.4'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -107,7 +107,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Stay Secure!'
+        ReleaseNotes = 'New feature Backup-DefenderAsrSetting'
 
         # External Module Dependencies which are not available using the Gallery
         ExternalModuleDependencies = @('Defender')
