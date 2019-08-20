@@ -1,3 +1,6 @@
+Write-Verbose "Clear `$Error to support debugging"
+$Global:Error.Clear()
+
 #region Attack surface reduction rules
 $script:rules = New-Object System.Collections.Specialized.OrderedDictionary
 [PSCustomObject]@{
@@ -98,6 +101,11 @@ $script:rules = New-Object System.Collections.Specialized.OrderedDictionary
     $states.Add("0",[PSCustomObject]@{"Id" = 0; "Name" = "Disable"})
     $states.Add("1",[PSCustomObject]@{"Id" = 1; "Name" = "Block"})
     $states.Add("2",[PSCustomObject]@{"Id" = 2; "Name" = "Audit"})
+
+    $script:modes = New-Object System.Collections.Specialized.OrderedDictionary
+    $modes.Add("Disable",0)
+    $modes.Add("Block",1)
+    $modes.Add("Audit",2)
 #endregion ASR States
 
 $scriptPath = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
@@ -105,5 +113,10 @@ $scriptPath = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definit
 . "$scriptPath\Lib\function-Get-DefenderAsrRule.ps1"
 . "$scriptPath\Lib\function-Show-DefenderAsrRule.ps1"
 . "$scriptPath\Lib\function-Backup-DefenderAsrSetting.ps1"
+. "$scriptPath\Lib\function-Restore-DefenderAsrSetting.ps1"
+
+
+. "$scriptPath\Lib\function-Clear-DefenderAsrSetting.ps1"
+. "$scriptPath\Lib\function-Set-DefenderAsrSetting.ps1"
 
 # Export-ModuleMember -Alias "List-DefenderAsrRules"
