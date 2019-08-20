@@ -3,7 +3,7 @@ function Backup-DefenderAsrSetting {
         .SYNOPSIS
             Backup-DefenderAsrSetting
         .DESCRIPTION
-            Backup-DefenderAsrSetting will backup your current configuration using JSON format.
+            Backup-DefenderAsrSetting will backup your current configuration using JSON format in the specified file(s).
         .PARAMETER Path
             The path of the file where the ASR rules should be saved
         .EXAMPLE
@@ -22,7 +22,7 @@ function Backup-DefenderAsrSetting {
                     HelpMessage="Path to one or more locations.")]
         [Alias("PSPath")]
         [ValidateNotNullOrEmpty()]
-        [string[]]
+        [System.String[]]
         $Path
     )
 
@@ -38,7 +38,9 @@ function Backup-DefenderAsrSetting {
                 $asrSettings | ConvertTo-Json | Out-File $outPath -Force
             }
         }
-        catch {}
+        catch {
+            "$_"
+        }
     }
     
     end {
