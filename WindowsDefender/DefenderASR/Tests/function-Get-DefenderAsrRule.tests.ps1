@@ -9,7 +9,7 @@ $ModuleName = "DefenderASR"
 $ModuleManifestName = "$ModuleName.psd1"
 $ModuleManifestPath = "$PSScriptRoot\..\$ModuleManifestName"
 Get-Module $ModuleName | Remove-Module -force
-Import-Module $ModuleManifestPath
+Import-Module $ModuleManifestPath -Verbose:$false
 
 InModuleScope -ModuleName $ModuleName -ScriptBlock {
     $scripPath = [System.IO.Path]::GetDirectoryName($PSCommandPath).Replace("\Tests","\Lib");
@@ -40,8 +40,11 @@ InModuleScope -ModuleName $ModuleName -ScriptBlock {
         Context -Name "General tests" -Fixture {
             It -Name "$function returns something" {
                 Get-DefenderAsrRule | Should -Not -BeNullOrEmpty
+                Get-DefenderAsrRule | ConvertTo-Json | clip.exe
                 Get-DefenderAsrRule | Should -HaveCount 5
                 Get-DefenderAsrRule | Should -BeOfType [PSCustomObject]
+                (Get-DefenderAsrRule).Action | Should -Contain "Block"
+                (Get-DefenderAsrRule).ActionId | Should -Contain 1
             }
         }
     }
