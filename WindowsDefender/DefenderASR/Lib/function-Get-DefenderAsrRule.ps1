@@ -34,10 +34,13 @@ function Get-DefenderAsrRule {
                     $o = $_.PSObject.Copy()
                     Write-Verbose $_.Name
                     Add-Member -InputObject $o -Name "Action" -MemberType NoteProperty -Value $($states["$($pref.AttackSurfaceReductionRules_Actions[$i])"].Name)
+                    Write-Verbose -Message "`$ActionID = $($pref.AttackSurfaceReductionRules_Actions[$i])"
+                    Add-Member -InputObject $o -Name "ActionId" -MemberType NoteProperty -Value $pref.AttackSurfaceReductionRules_Actions[$i]
                     $o
                 }
                 $i++
-            } | Sort-Object $Id | Select-Object Name, Action, Guid
+                # TODO: keep in mind that extending the returned properties, you have to extend the Select-Object as well
+            } | Sort-Object $Id | Select-Object Name, Action, ActionId, Guid
         }
         else {
             Write-Warning "You don't have any ASR rules defined, we recommend to configure some!"
