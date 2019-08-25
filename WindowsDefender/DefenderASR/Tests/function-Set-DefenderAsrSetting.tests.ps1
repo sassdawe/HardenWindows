@@ -38,8 +38,15 @@ InModuleScope -ModuleName $ModuleName -ScriptBlock {
     }
     Describe -Name "Functional tests of $function" -Fixture {
         Context -Name "General tests" -Fixture {
-            It -Name "$function returns something" {
-                Set-DefenderAsrRule -Rule ""
+            It -Name "Set 2 rules" {
+                Set-DefenderAsrSetting -Rule 'Block Adobe Reader from creating child processes','Block all Office applications from creating child processes' -Action Audit,Audit -Confirm:$false
+                Get-DefenderAsrRule | Should -HaveCount 2
+
+            }
+
+            It -Name "Set 3 rules" {
+                Set-DefenderAsrSetting -Rule 'Block Adobe Reader from creating child processes','Block all Office applications from creating child processes','Block executable files from running unless they meet a prevalence, age, or trusted list criterion' -Action Audit,Audit,Audit -Confirm:$false
+                Get-DefenderAsrRule | Should -HaveCount 3
             }
         }
     }
@@ -52,11 +59,11 @@ InModuleScope -ModuleName $ModuleName -ScriptBlock {
         } -ModuleName DefenderASR
 
         Context -Name "General tests with a MOCK" -Fixture {
-            It -Name "$function returns nothing" {
+            #It -Name "$function returns nothing" {
                 #Get-DefenderAsrRule | Should -BeNullOrEmpty
                 #Get-DefenderAsrRule | Should -HaveCount 0
                 #Get-DefenderAsrRule | Should -BeOfType [PSCustomObject]
-            }
+            #}
         }
     }
 }
