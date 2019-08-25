@@ -26,7 +26,8 @@ function Clear-DefenderAsrSetting {
         try {
             If ($PSCmdlet.ShouldProcess("Defender ASR settings","Clear")) {
                 try {
-                    Set-MpPreference -AttackSurfaceReductionRules_Ids $null -AttackSurfaceReductionRules_Actions $null
+                    $currentSetting = Get-DefenderAsrRule
+                    Remove-MpPreference -AttackSurfaceReductionRules_Ids $currentSetting.guid
                 }
                 catch {
                     "$_"

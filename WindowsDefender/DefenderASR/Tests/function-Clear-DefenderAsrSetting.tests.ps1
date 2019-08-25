@@ -38,8 +38,10 @@ InModuleScope -ModuleName $ModuleName -ScriptBlock {
     }
     Describe -Name "Functional tests of $function" -Fixture {
         Context -Name "General tests" -Fixture {
-            It -Name "$function returns something" {
-                
+            It -Name "Clear two rules" {
+                Set-DefenderAsrSetting -Rule 'Block Adobe Reader from creating child processes','Block all Office applications from creating child processes' -Action Audit,Audit -Confirm:$false
+                Clear-DefenderAsrSetting -Confirm:$false
+                Get-DefenderAsrRule | Should -HaveCount 0
             }
         }
     }
@@ -51,10 +53,10 @@ InModuleScope -ModuleName $ModuleName -ScriptBlock {
             }
         } -ModuleName DefenderASR
 
-        Context -Name "General tests with a MOCK" -Fixture {
-            It -Name "$function returns nothing" {
-                
-            }
-        }
+        #Context -Name "General tests with a MOCK" -Fixture {
+        #    It -Name "$function returns nothing" {
+        #
+        #    }
+        #}
     }
 }
