@@ -47,8 +47,8 @@ InModuleScope -ModuleName $ModuleName -ScriptBlock {
         }
     }#>
 
-    Describe -Name "Functional tests of $function with a MOCK" -Fixture {
-        Mock -CommandName "Set-MpPreference" -MockWith {
+    Describe -Name "Functional tests of $function with a MOCK" -Tag 'Mock' -Fixture {
+        Mock -CommandName "Set-MpPreference" -MockWith {    
             param (
                 [ValidateNotNullOrEmpty()]
                 [string[]]
@@ -75,8 +75,30 @@ InModuleScope -ModuleName $ModuleName -ScriptBlock {
                 $mockReturned = Restore-DefenderAsrSetting -path "TestDrive:\asr-settings-1.json" -Confirm:$false -Verbose:$true
                 $mockReturned | SHould -Not -BeNullOrEmpty
                 $mockReturned | ConvertTo-Json | clip.exe
-                $mockReturned.AttackSurfaceReductionRules_Actions.Count | SHould -Be 6
-                $mockReturned.AttackSurfaceReductionRules_Ids.Count | SHould -Be 6
+                $mockReturned.AttackSurfaceReductionRules_Actions.Count | SHould -Be 3
+                $mockReturned.AttackSurfaceReductionRules_Ids.Count | SHould -Be 3
+            }
+        }
+    }
+
+    Describe -Name "Functional tests with real backup (3)" -Tag 'Real' -Fixture {
+        Context -Name "Function test #1, with 3 items" -Fixture {
+            It -Name "Restore config after clearing it" -Test {
+                Clear-DefenderAsrSetting -Confirm:$false | Out-Null
+
+                Get-DefenderAsrRule | Should -HaveCount 0
+
+                Restore-DefenderAsrSetting -Path C:\source\defenderasr-rules.bak -Confirm:$false
+
+                Get-DefenderAsrRule | Should -HaveCount 3
+            }
+
+            It -Name "Restore config after clearing it plus PassThru" -Test {
+                Clear-DefenderAsrSetting -Confirm:$false | Out-Null
+
+                Get-DefenderAsrRule | Should -HaveCount 0
+
+                Restore-DefenderAsrSetting -Path C:\source\defenderasr-rules.bak -Confirm:$false -PassThru | Should -HaveCount 3
             }
         }
     }

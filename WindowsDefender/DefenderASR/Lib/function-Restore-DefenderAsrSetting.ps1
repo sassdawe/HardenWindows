@@ -46,7 +46,7 @@ function Restore-DefenderAsrSetting {
 
     process {
         try {
-            If ($PSCmdlet.ShouldProcess("$Path")) {
+            If ($PSCmdlet.ShouldProcess("Defender ASR settings from $Path","Restore")) {
                 try {
                     $null = $ids = New-Object System.Collections.ArrayList
                     $null = $actions = New-Object System.Collections.ArrayList
