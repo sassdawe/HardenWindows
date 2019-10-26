@@ -15,14 +15,22 @@ $Name = "MpEnablePus"
 
 $value = "1"
 
-if ( ( Test-Path $registryPath )) {
+if ( ( Test-Path $registryPath -Verbose )) {
+    Write-Host "We have the folder"
     if (-not (Get-ItemProperty -Path $registryPath -Name $name -ErrorAction SilentlyContinue) ){
-        New-ItemProperty -Path $registryPath -Name $Name -PropertyType DWORD -Value $value
+        New-ItemProperty -Path $registryPath -Name $Name -PropertyType DWORD -Value $value -Verbose
     }
     elseif ($value -ne ((Get-ItemProperty -Path $registryPath -Name $name)."$name") ) {
-        Set-ItemProperty -Path $registryPath -Name $Name -Value $value
+        Set-ItemProperty -Path $registryPath -Name $Name -Value $value -Verbose
     }
     else {
         Write-Host "No change was necessary" -ForegroundColor Green
+    }
+}
+else {
+    Write-Host "We don't have the folder"
+    New-Item -Path $registryPath -ItemType Directory
+    if (-not (Get-ItemProperty -Path $registryPath -Name $name -ErrorAction SilentlyContinue) ){
+        New-ItemProperty -Path $registryPath -Name $Name -PropertyType DWORD -Value $value -Verbose
     }
 }
