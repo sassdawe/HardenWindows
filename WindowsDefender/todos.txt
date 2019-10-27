@@ -1,0 +1,5 @@
+Turn on Attack Surface Reduction rules
+https://docs.microsoft.com/windows/security/threat-protection/windows-defender-exploit-guard/attack-surface-reduction-exploit-guard
+
+
+Turn on Application Guard managed mode
