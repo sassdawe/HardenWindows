@@ -16,6 +16,7 @@ function Get-DefenderAsrRule {
             https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/attack-surface-reduction-exploit-guard
     #>
     [CmdletBinding()]
+    [Alias('Get-DefenderAsrSetting')]
     param (
 
     )
