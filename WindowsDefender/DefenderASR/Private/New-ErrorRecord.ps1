@@ -10,7 +10,7 @@ function New-ErrorRecord {
             throw ( New-ShouldErrorRecord -Message $testResult.FailureMessage -File $file -Line $lineNumber -LineText $lineText )
         .EXAMPLE
         .LINK
-            https://github.com/pester/Pester/blob/master/Functions/Assertions/Should.ps1
+            https://github.com/pester/Pester/
     #>
     param (
         [string]
