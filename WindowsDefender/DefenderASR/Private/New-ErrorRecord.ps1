@@ -14,6 +14,7 @@ function New-ErrorRecord {
         .NOTES
             Origin: PESTER
             Credit should go to the author of PESTER
+            https://github.com/pester/Pester/
     #>
     param (
         [string]
