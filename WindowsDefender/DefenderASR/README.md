@@ -1,5 +1,7 @@
 # DefenderASR
 
+[![PS Gallery][psgallery-badge]][powershell-gallery]
+
 ## Microsoft Defender Attack Surface Reduction configurator
 
 This modules was created to help manually configure the local ASR settings of a machine in a small scale scenario where doesn't make sense to use System Center Configuration Manager, Microsoft Intune or Group Policies to deploy the settings.
@@ -20,3 +22,6 @@ Coming later:
 ### Installation
 
 You can always download the code from here but the module is also published into the [PowerShell Gallery](https://www.powershellgallery.com/packages/DefenderASR/)
+
+[psgallery-badge]: https://img.shields.io/powershellgallery/dt/DefenderASR.svg
+[powershell-gallery]: https://www.powershellgallery.com/packages/DefenderASR/
