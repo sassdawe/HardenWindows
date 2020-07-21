@@ -39,10 +39,11 @@ InModuleScope -ModuleName $ModuleName -ScriptBlock {
     Describe -Name "Functional tests of $function" -Fixture {
         Context -Name "General tests" -Fixture {
             It -Name "$function returns something" {
+                # TODO: we have to set the item we want to test
                 Backup-DefenderAsrSetting -path "TestDrive:\asr-settings-0.json"
-                "TestDrive:\asr-settings-0.json" | SHould -Exist
-                "TestDrive:\asr-settings-0.json" | SHould -FileContentMatch -ExpectedContent "75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84"
-                "TestDrive:\asr-settings-0.json" | SHould -FileContentMatch -ExpectedContent "Audit"
+                "TestDrive:\asr-settings-0.json" | Should -Exist
+                "TestDrive:\asr-settings-0.json" | Should -FileContentMatch -ExpectedContent "75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84"
+                "TestDrive:\asr-settings-0.json" | Should -FileContentMatch -ExpectedContent "Audit"
             }
         }
     }
@@ -57,7 +58,7 @@ InModuleScope -ModuleName $ModuleName -ScriptBlock {
         Context -Name "General tests with a MOCK" -Fixture {
             It -Name "$function returns nothing" {
                 Backup-DefenderAsrSetting -path "TestDrive:\asr-settings-1.json"
-                "TestDrive:\asr-settings-1.json" | SHould -Exist
+                "TestDrive:\asr-settings-1.json" | Should -Exist
             }
         }
     }
