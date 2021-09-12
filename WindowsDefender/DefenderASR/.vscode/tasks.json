@@ -1,0 +1,159 @@
+// Available variables which can be used inside of strings.
+// ${workspaceRoot}: the root folder of the team
+// ${file}: the current opened file
+// ${relativeFile}: the current opened file relative to workspaceRoot
+// ${fileBasename}: the current opened file's basename
+// ${fileDirname}: the current opened file's dirname
+// ${fileExtname}: the current opened file's extension
+// ${cwd}: the current working directory of the spawned process
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "_runner": "terminal",
+    // Start PowerShell
+    "windows": {
+        "options": {
+            "shell": {
+                "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                "args": [
+                    "-NoProfile",
+                    "-ExecutionPolicy",
+                    "Bypass",
+                    "-Command"
+                ]
+            }
+        }
+    },
+    //  "linux": {
+    //      "command": "/usr/bin/powershell"
+    //  },
+    //  "osx": {
+    //      "command": "/usr/local/bin/powershell"
+    //  },
+    // The command is a shell script
+    "type": "shell",
+    // Show the output window always
+    "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+    },
+    // Associate with test task runner
+    "tasks": [
+        {
+            "label": "Run.AllTest",
+            "suppressTaskName": true,
+            "isTestCommand": false,
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "command": [
+                "Write-Host 'Invoking Pester'; Invoke-Pester -PesterOption @{IncludeVSCodeMarker=$true};",
+                "Invoke-Command { Write-Host 'Completed Test task in task runner.' }"
+            ],
+            "problemMatcher": [
+                {
+                    "owner": "powershell",
+                    "fileLocation": [
+                        "absolute"
+                    ],
+                    "severity": "error",
+                    "pattern": [
+                        {
+                            "regexp": "^\\s*(\\[-\\]\\s*.*?)(\\d+)ms\\s*$",
+                            "message": 1
+                        },
+                        {
+                            "regexp": "^\\s+at\\s+[^,]+,\\s*(.*?):\\s+line\\s+(\\d+)$",
+                            "file": 1,
+                            "line": 2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "label": "Run.IntegrationTests",
+            "suppressTaskName": true,
+            "isTestCommand": false,
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "command": [
+                "Write-Host 'Invoking Pester'; Invoke-Pester -PesterOption @{IncludeVSCodeMarker=$true} -Tag 'Integrationtests';",
+                "Invoke-Command { Write-Host 'Completed Test task in task runner.' }"
+            ],
+            "problemMatcher": [
+                {
+                    "owner": "powershell",
+                    "fileLocation": [
+                        "absolute"
+                    ],
+                    "severity": "error",
+                    "pattern": [
+                        {
+                            "regexp": "^\\s*(\\[-\\]\\s*.*?)(\\d+)ms\\s*$",
+                            "message": 1
+                        },
+                        {
+                            "regexp": "^\\s+at\\s+[^,]+,\\s*(.*?):\\s+line\\s+(\\d+)$",
+                            "file": 1,
+                            "line": 2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "label": "Run.CurrentFile",
+            "suppressTaskName": true,
+            "isTestCommand": true,
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "command": [
+                "Write-Host 'Invoking Pester' for ${fileBasename}; Invoke-Pester -PesterOption @{IncludeVSCodeMarker=$true} -Script '${workspaceRoot}\\Tests\\${fileBasenameNoExtension}.Tests.ps1';",
+                "Invoke-Command { Write-Host 'Completed Test task in task runner.' }"
+            ],
+            "problemMatcher": [
+                {
+                    "owner": "powershell",
+                    "fileLocation": [
+                        "absolute"
+                    ],
+                    "severity": "error",
+                    "pattern": [
+                        {
+                            "regexp": "^\\s*(\\[-\\]\\s*.*?)(\\d+)ms\\s*$",
+                            "message": 1
+                        },
+                        {
+                            "regexp": "^\\s+at\\s+[^,]+,\\s*(.*?):\\s+line\\s+(\\d+)$",
+                            "file": 1,
+                            "line": 2
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

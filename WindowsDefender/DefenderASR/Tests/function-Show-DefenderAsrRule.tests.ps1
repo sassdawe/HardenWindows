@@ -12,9 +12,9 @@ Get-Module $ModuleName | Remove-Module -force
 Import-Module $ModuleManifestPath
 
 InModuleScope -ModuleName $ModuleName -ScriptBlock {
-    $scripPath = [System.IO.Path]::GetDirectoryName($PSCommandPath).Replace("\Tests","\Lib");
+    $scripPath = [System.IO.Path]::GetDirectoryName($PSCommandPath).tolower().Replace("\tests","\lib");
     $testFileName = $PSCommandPath | Split-Path -Leaf;
-    $targetFileName = $testFileName.Replace(".tests.",".");
+    $targetFileName = $testFileName.ToLower().Replace(".tests.",".");
     $function = $targetFileName.Replace("function-","").Replace(".ps1","");
 
     Describe -Name "Validation tests of $function" -Fixture {
