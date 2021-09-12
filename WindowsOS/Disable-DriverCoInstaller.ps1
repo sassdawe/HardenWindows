@@ -28,7 +28,7 @@ if ( ( Test-Path $registryPath -Verbose )) {
 }
 else {
     Write-Host "We don't have the folder"
-    New-Item -Path $registryPath -ItemType Directory
+    New-Item -Path $registryPath -ItemType Directory -Force | Out-Null
     if (-not (Get-ItemProperty -Path $registryPath -Name $name -ErrorAction SilentlyContinue) ){
         New-ItemProperty -Path $registryPath -Name $Name -PropertyType DWORD -Value $value -Verbose
     }
